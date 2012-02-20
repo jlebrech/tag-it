@@ -39,6 +39,11 @@
             // When enabled, quotes are not neccesary
             // for inputting multi-word tags.
             allowSpaces: false,
+            
+            // When enabled, commas will not be
+            // used to deliminate items and will instead
+            // be inserted into the text
+            allowCommas: false,
 
             // Whether to animate tag removals or not.
             animate: true,
@@ -178,10 +183,13 @@
                     }
 
                     // Comma/Space/Enter are all valid delimiters for new tags,
-                    // except when there is an open quote or if setting allowSpaces = true.
+                    // except when there is an open quote or if setting allowSpaces = true or allowCommas = true.
                     // Tab will also create a tag, unless the tag input is empty, in which case it isn't caught.
                     if (
-                        event.which == $.ui.keyCode.COMMA ||
+                        (
+                            that.options.allowCommas !== true &&
+                            event.which == $.ui.keyCode.COMMA
+                        ) ||
                         event.which == $.ui.keyCode.ENTER ||
                         (
                             event.which == $.ui.keyCode.TAB &&
